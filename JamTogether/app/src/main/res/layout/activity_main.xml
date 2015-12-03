@@ -24,13 +24,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Profil"
-            android:id="@+id/button"
+            android:id="@+id/button_profil"
             android:layout_marginTop="105dp"
             android:layout_marginLeft="61dp"
             android:layout_marginStart="61dp"
             android:layout_below="@+id/txt_v_welcome"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"/>
 
     </RelativeLayout>
 

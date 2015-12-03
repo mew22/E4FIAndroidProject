@@ -25,9 +25,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Prénom : "
+        android:text="First Name :"
         android:id="@+id/tvPrenom"
         android:layout_weight="3" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,7 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Âge : "
+        android:text="Age : "
         android:id="@+id/tvAge"
         android:layout_weight="3" />
     <TextView
@@ -51,7 +52,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lieu : "
+        android:text="City : "
         android:id="@+id/tvLocation"
         android:layout_weight="3" />
     <TextView
@@ -78,14 +79,14 @@
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Editer"
-        android:id="@+id/butEdit"
-        android:layout_weight="0.1" />
+        android:text="Edit"
+        android:id="@+id/butEditProfile"
+        android:layout_weight="0.1"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Retour"
-        android:id="@+id/butRetour"
+        android:text="Back"
+        android:id="@+id/butReturnWelc"
         android:layout_weight="0.1" />
 
 </LinearLayout>
