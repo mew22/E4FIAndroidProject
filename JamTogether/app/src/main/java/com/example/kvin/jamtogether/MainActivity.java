@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,46 +134,100 @@ if(ParseUser.getCurrentUser().get("age") != null) {
                         listeditprofile.add(editprenom);
                         listeditprofile.add(editlocation);
                         listeditprofile.add(editinst);
-
+                        boolean full = false;
 
                         //Test de remplissage
-                       if (listeditprofile.contains(null)|| listeditprofile.contains("")){
 
-                           error_text.setText("Please fill in all the fields.");
-                           error_text.setTextColor(Color.RED);
+                        while (full == false) {
 
-                       }
+                            for (EditText elt : listeditprofile) {
 
-                        else {
+                                if (TextUtils.isEmpty(elt.getText().toString())) {
+                                    elt.setError("Please fill this item.");
+                                    error_text.setText("Please verify that all fields are written.");
+                                    error_text.setTextColor(Color.RED);
+                                    return;
+                                } else {
+                                    full = true;
+                                }
+                            }
 
-                           // Actu dans la BDD
+                        }
 
-                           ParseUser.getCurrentUser().put("username",editpseudo.getText().toString());
-                           ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                           ParseUser.getCurrentUser().put("name",editprenom.getText().toString());
-                           ParseUser.getCurrentUser().put("location",editlocation.getText().toString());
-                           ParseUser.getCurrentUser().put("main_instrument",editinst.getText().toString());
 
-                           ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                               public void done(com.parse.ParseException e) {
-                                   if (e == null) {
-                                       // Save was successful!
-                                      Toast.makeText(MainActivity.this,"Profile Updated !", Toast.LENGTH_LONG).show();
-                                   } else {
-                                       //Failed
-                                       Toast.makeText(MainActivity.this,"Error during Update !", Toast.LENGTH_LONG).show();
-                                   }
-                               }
-                           });
 
-                       }
+                    // Actu dans la BDD
 
-                        //Réactualisation du Profil
-                        dialog.dismiss();
-                        openProfile(v);
+                    ParseUser.getCurrentUser().
+
+                    put("username",editpseudo.getText()
+
+                    .
+
+                    toString()
+
+                    );
+                    ParseUser.getCurrentUser().
+
+                    put("age",editage.getText()
+
+                    .
+
+                    toString()
+
+                    );
+                    ParseUser.getCurrentUser().
+
+                    put("name",editprenom.getText()
+
+                    .
+
+                    toString()
+
+                    );
+                    ParseUser.getCurrentUser().
+
+                    put("location",editlocation.getText()
+
+                    .
+
+                    toString()
+
+                    );
+                    ParseUser.getCurrentUser().
+
+                    put("main_instrument",editinst.getText()
+
+                    .
+
+                    toString()
+
+                    );
+
+                    ParseUser.getCurrentUser().
+
+                    saveInBackground(new SaveCallback() {
+                        public void done (com.parse.ParseException e){
+                            if (e == null) {
+                                // Save was successful!
+                                Toast.makeText(MainActivity.this, "Profile Updated !", Toast.LENGTH_LONG).show();
+                            } else {
+                                //Failed
+                                Toast.makeText(MainActivity.this, "Error during Update !", Toast.LENGTH_LONG).show();
+                            }
+                        }
                     }
 
-                });
+                    );
+
+
+                    //Réactualisation du Profil
+                    dialog.dismiss();
+
+                    openProfile(v);
+                }
+
+            });
 
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override
