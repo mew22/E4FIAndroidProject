@@ -1,6 +1,7 @@
 package com.example.kvin.jamtogether;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TextView txt_welc;
+    private Button btn_prof;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,12 +43,10 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(builder.build(), 0);
 
         setContentView(R.layout.activity_main);
-        TextView txt_welc = (TextView) findViewById(R.id.txt_v_welcome);
-        txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
-        txt_welc.setTextColor(Color.WHITE);
-        txt_welc.setTextSize(25);
+        txt_welc = (TextView) findViewById(R.id.txt_v_welcome);
 
-        Button btn_prof = (Button) findViewById(R.id.button_profil);
+
+        btn_prof = (Button) findViewById(R.id.button_profil);
 
         btn_prof.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +56,19 @@ public class MainActivity extends AppCompatActivity {
 
         });;
     }
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
+                txt_welc.setTextColor(Color.WHITE);
+                txt_welc.setTextSize(25);
+            }
+        }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
