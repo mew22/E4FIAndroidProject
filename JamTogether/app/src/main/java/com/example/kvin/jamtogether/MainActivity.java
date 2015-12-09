@@ -1,5 +1,17 @@
 package com.example.kvin.jamtogether;
 
+
+import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.text.Layout;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +38,16 @@ import com.parse.ui.ParseLoginBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener   {
 
     private TextView txt_welc;
     private Button btn_prof;
+    private boolean login;
+    private DrawerLayout drawer;
+    private RelativeLayout content_main;
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,15 +57,25 @@ public class MainActivity extends AppCompatActivity {
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, "rSlaIlrY9sxsd2Zi2NU3cw9xZ5y3tf7nXsAm036I", "tyOKMxrci5tHKrOFMvLNgXWLw6mvQwHxRWJ2N0Bx");
         ParseInstallation.getCurrentInstallation().saveInBackground();
-
-        // Ouverture Login
-        ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-        startActivityForResult(builder.build(), 0);
-
-        setContentView(R.layout.activity_main);
-        txt_welc = (TextView) findViewById(R.id.txt_v_welcome);
+        login = false;
 
 
+
+        setContentView(R.layout.activity_main_logout);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        content_main = (RelativeLayout)drawer.findViewById(R.id.content_main);
+
+        /*txt_welc = (TextView) findViewById(R.id.txt_v_welcome);
         btn_prof = (Button) findViewById(R.id.button_profil);
 
         btn_prof.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +84,25 @@ public class MainActivity extends AppCompatActivity {
 
             openProfile(v);}
 
-        });;
+        });;*/
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode,
@@ -62,9 +110,31 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
-                txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
+                /*txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
                 txt_welc.setTextColor(Color.WHITE);
-                txt_welc.setTextSize(25);
+                txt_welc.setTextSize(25);*/
+
+
+                setContentView(R.layout.activity_main_login);
+                toolbar = (Toolbar) findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+                drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                toggle = new ActionBarDrawerToggle(
+                        this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                drawer.setDrawerListener(toggle);
+                toggle.syncState();
+
+                navigationView = (NavigationView) findViewById(R.id.nav_view);
+                navigationView.setNavigationItemSelectedListener(this);
+
+                View v = navigationView.getHeaderView(0);
+
+                txt_welc = (TextView) v.findViewById(R.id.tv_hello);
+                txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
+
+                content_main = (RelativeLayout)drawer.findViewById(R.id.content_main);
+                navigationView.getMenu().getItem(1).setChecked(true);
+
             }
         }
     }
@@ -73,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -97,7 +167,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void openProfile(View v){
 
-        setContentView(R.layout.profile);
+        LayoutInflater inflater = getLayoutInflater();
+        inflater.inflate(R.layout.profile, content_main);
 
         Button btneditprf = (Button) findViewById(R.id.butEditProfile);
         Button btnretacc = (Button) findViewById(R.id.butReturnWelc);
@@ -260,5 +331,31 @@ if(ParseUser.getCurrentUser().get("age") != null) {
 
 
 
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        switch(item.getItemId()){ //for each menu item in nav
+
+            case R.id.nav_login : {
+                // Ouverture Login
+                ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+                startActivityForResult(builder.build(), 0);
+                break;
+            }
+            case R.id.nav_logout: {
+                break;
+            }
+            case R.id.nav_profil: {
+
+                openProfile(null);
+                break;
+            }
+        }
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
