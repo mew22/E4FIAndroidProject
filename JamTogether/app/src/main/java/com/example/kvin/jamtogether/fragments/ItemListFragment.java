@@ -13,7 +13,7 @@ import com.example.kvin.jamtogether.Instrument;
 import com.example.kvin.jamtogether.Invitation;
 import com.example.kvin.jamtogether.Music;
 import com.example.kvin.jamtogether.MyApplication;
-import com.example.kvin.jamtogether.Profil;
+import com.example.kvin.jamtogether.User;
 import com.example.kvin.jamtogether.R;
 import com.example.kvin.jamtogether.Session;
 import com.example.kvin.jamtogether.fragments.dummy.DummyContent;
@@ -85,32 +85,32 @@ public class ItemListFragment extends ListFragment {
         switch(((MyApplication)getActivity().getApplication()).item.getItemId()){ //for each menu item in nav
 
             case R.id.nav_search:{
-                list = ((MyApplication)getActivity().getApplication()).list_profil;
-                c = Profil.class;
+                list = ((MyApplication)getActivity().getApplication()).list_user;
+                c = User.class;
                 break;
             }
             case R.id.nav_groups:{
-                list = ((MyApplication)getActivity().getApplication()).list_group;
+                list = ((MyApplication)getActivity().getApplication()).current_user.list_group;
                 c = Group.class;
                 break;
             }
             case R.id.nav_music:{
-                list = ((MyApplication)getActivity().getApplication()).list_music;
+                list = ((MyApplication)getActivity().getApplication()).current_user.list_music;
                 c = Music.class;
                 break;
             }
             case R.id.nav_instruments:{
-                list = ((MyApplication)getActivity().getApplication()).list_instrument;
+                list = ((MyApplication)getActivity().getApplication()).current_user.list_instrument;
                 c = Instrument.class;
                 break;
             }
             case R.id.nav_sessions:{
-                list = ((MyApplication)getActivity().getApplication()).list_session;
+                list = ((MyApplication)getActivity().getApplication()).current_user.list_session;
                 c = Session.class;
                 break;
             }
             case R.id.nav_invitations:{
-                list = ((MyApplication)getActivity().getApplication()).list_invitation;
+                list = ((MyApplication)getActivity().getApplication()).current_user.list_invitation;
                 c = Invitation.class;
                 break;
             }

@@ -25,6 +25,7 @@ import com.example.kvin.jamtogether.fragments.IntermediateListFragment;
 import com.example.kvin.jamtogether.fragments.ItemDetailFragment;
 import com.example.kvin.jamtogether.fragments.ItemListFragment;
 import com.example.kvin.jamtogether.fragments.LogoutFragment;
+import com.example.kvin.jamtogether.fragments.NewsFragment;
 import com.example.kvin.jamtogether.fragments.ProfilFragment;
 import com.example.kvin.jamtogether.fragments.SearchFragment;
 import com.example.kvin.jamtogether.interfaces.Callbacks;
@@ -88,17 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             content_main = (FrameLayout)drawer.findViewById(R.id.content_main);
             navigationView.getMenu().getItem(1).setChecked(true);
         }
-
-        /*txt_welc = (TextView) findViewById(R.id.txt_v_welcome);
-        btn_prof = (Button) findViewById(R.id.button_profil);
-
-        btn_prof.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            openProfile(v);}
-
-        });;*/
     }
 
 
@@ -107,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onStart();
         if(((MyApplication)getApplication()).item != null){
             onNavigationItemSelected(((MyApplication)getApplication()).item);
+        }else{
+            onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_news));
         }
 
     }
@@ -132,10 +124,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 0) {
             if (resultCode == RESULT_OK) {
-                /*txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
-                txt_welc.setTextColor(Color.WHITE);
-                txt_welc.setTextSize(25);*/
-
                 ((MyApplication)getApplication()).login = true;
                 setContentView(R.layout.activity_main_login);
                 toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -153,12 +141,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 txt_welc = (TextView) v.findViewById(R.id.tv_hello);
                 txt_welc.setText("Salut, " + ParseUser.getCurrentUser().get("username") + " !");
-
                 content_main = (FrameLayout)drawer.findViewById(R.id.content_main);
                 navigationView.getMenu().getItem(1).setChecked(true);
 
-                onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_profil));
-                //TODO: Generate each list in MyApplication except list<Profil>
+                GetInfosUser();                      //TODO: Generate each list in MyApplication except list<Profil>
+                onNavigationItemSelected(navigationView.getMenu().findItem(R.id.nav_news));
             }
         }
     }
@@ -199,6 +186,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         switch(item.getItemId()){ //for each menu item in nav
 
+            case R.id.nav_news:{
+                fragmentClass = NewsFragment.class;
+                break;
+            }
             case R.id.nav_search:{
                 fragmentClass = SearchFragment.class;
                 break;
@@ -311,6 +302,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         content_main = (FrameLayout) drawer.findViewById(R.id.content_main);
+    }
+
+
+    public void GetInfosUser(){
+        ((MyApplication)getApplication()).current_user.list_group = ParseUser.getCurrentUser().getList("groups");
+        ((MyApplication)getApplication()).current_user.list_instrument = ParseUser.getCurrentUser().getList("instruments");
+        ((MyApplication)getApplication()).current_user.list_music = ParseUser.getCurrentUser().getList("musics");
+        ((MyApplication)getApplication()).current_user.list_invitation = ParseUser.getCurrentUser().getList("invitations");
+        ((MyApplication)getApplication()).current_user.list_session = ParseUser.getCurrentUser().getList("sessions");
+        ((MyApplication)getApplication()).current_user.list_role = ParseUser.getCurrentUser().getList("roles");
+
+        ((MyApplication)getApplication()).current_user.username = ParseUser.getCurrentUser().getUsername();
     }
 }
 

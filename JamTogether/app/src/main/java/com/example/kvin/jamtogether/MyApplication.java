@@ -14,18 +14,12 @@ import java.util.List;
  */
 public class MyApplication extends Application{
 
-        public String session;
-        public String username;
+
+        public List<User> list_user = new ArrayList<User>(); // for search
+        public User current_user = new User();
         public boolean login;
         public boolean TwoPane;
         public MenuItem item;
-
-        public List<Group> list_group = new ArrayList<Group>();
-        public List<Instrument> list_instrument = new ArrayList<Instrument>();
-        public List<Music> list_music= new ArrayList<Music>();
-        public List<Profil> list_profil = new ArrayList<Profil>(); // for search
-        public List<Session> list_session= new ArrayList<Session>();
-        public List<Invitation> list_invitation =  new ArrayList<Invitation>();
 
         public MyApplication() {
 
