@@ -15,6 +15,7 @@ import java.util.List;
 public class MyApplication extends Application{
 
         public String session;
+        public String username;
         public boolean login;
         public boolean TwoPane;
         public MenuItem item;
