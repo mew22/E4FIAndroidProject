@@ -40,7 +40,7 @@ public class GroupsFragment extends IntermediateListFragment {
 
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
-            ((GroupListFragment) getChildFragmentManager()
+            ((ItemListFragment) getChildFragmentManager()
                     .findFragmentById(R.id.item_list))
                     .setActivateOnItemClick(true);
         }
