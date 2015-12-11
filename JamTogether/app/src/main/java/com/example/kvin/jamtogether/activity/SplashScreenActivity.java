@@ -1,4 +1,4 @@
-package com.example.kvin.jamtogether;
+package com.example.kvin.jamtogether.activity;
 
 /**
  * Created by Asus on 05/12/2015.
@@ -8,6 +8,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.example.kvin.jamtogether.R;
 
 public class SplashScreenActivity extends Activity {
 
