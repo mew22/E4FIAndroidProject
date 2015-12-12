@@ -8,4 +8,9 @@ public class Instrument extends IntermediateClass{
     public String toString() {
         return "Instrument";
     }
+
+    public Instrument(){
+        super();
+        content = toString() + id;
+    }
 }

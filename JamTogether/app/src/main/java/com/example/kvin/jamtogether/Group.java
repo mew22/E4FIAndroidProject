@@ -9,4 +9,9 @@ public class Group extends IntermediateClass{
     public String toString() {
         return "Groupe";
     }
+
+    public Group(){
+        super();
+        content = toString() + id;
+    }
 }

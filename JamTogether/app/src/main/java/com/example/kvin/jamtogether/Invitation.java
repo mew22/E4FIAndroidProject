@@ -8,4 +8,9 @@ public class Invitation extends IntermediateClass{
     public String toString() {
         return "Invitation";
     }
+
+    public Invitation(){
+        super();
+        content = toString() + id;
+    }
 }

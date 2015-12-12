@@ -1,7 +1,9 @@
 package com.example.kvin.jamtogether.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,6 +11,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +48,7 @@ public class ProfilFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setHasOptionsMenu(true);
     }
 
     @Override
@@ -63,14 +69,32 @@ public class ProfilFragment extends Fragment {
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.edit_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.edit:{
+                openEditDialog();
+                return true;
+            }
+            default:{
+                return super.onOptionsItemSelected(item);
+            }
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_profil, container, false);
-        btneditprf = (Button) v.findViewById(R.id.butEditProfile);
-        btnretacc = (Button) v.findViewById(R.id.butReturnWelc);
 
         tvpseudo = (TextView) v.findViewById(R.id.tvPseudoEdit);
         tvage = (TextView) v.findViewById(R.id.tvAgeEdit);
@@ -80,34 +104,6 @@ public class ProfilFragment extends Fragment {
         return v;
     }
 
-    /*// TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }*/
 
     public void openProfile(View v){
 
@@ -121,33 +117,35 @@ public class ProfilFragment extends Fragment {
             tvinstru.setText(ParseUser.getCurrentUser().get("main_instrument").toString());
         }
 
+    }
 
-        btneditprf.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void openEditDialog() {
+        View root = getActivity().getLayoutInflater().inflate(R.layout.edit_profile_dialog, null);
 
-                final Dialog dialog = new Dialog(getActivity());
-                dialog.setContentView(R.layout.edit_profile_dialog);
-                dialog.setCancelable(true);
+        final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
+        final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
+        final EditText editage = (EditText) root.findViewById(R.id.edit_age);
+        final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
+        final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
 
-                final EditText editpseudo = (EditText) dialog.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) dialog.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) dialog.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) dialog.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) dialog.findViewById(R.id.edit_main_inst);
+        final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
 
-                final TextView error_text = (TextView) dialog.findViewById(R.id.texterroredit);
-
-                Button confirm = (Button) dialog.findViewById(R.id.button_confirm_edition);
-                Button cancel = (Button) dialog.findViewById(R.id.button_cancel_edition);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
+        final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
-                confirm.setOnClickListener(new View.OnClickListener() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Edit profil")
+                .setView(root)
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
                         listeditprofile.add(editpseudo);
                         listeditprofile.add(editage);
                         listeditprofile.add(editprenom);
@@ -172,98 +170,28 @@ public class ProfilFragment extends Fragment {
                             }
 
                         }
-
-
-
                         // Actu dans la BDD
-
-                        ParseUser.getCurrentUser().
-
-                                put("username",editpseudo.getText()
-
-                                                .
-
-                                                        toString()
-
-                                );
-                        ParseUser.getCurrentUser().
-
-                                put("age",editage.getText()
-
-                                                .
-
-                                                        toString()
-
-                                );
-                        ParseUser.getCurrentUser().
-
-                                put("name",editprenom.getText()
-
-                                                .
-
-                                                        toString()
-
-                                );
-                        ParseUser.getCurrentUser().
-
-                                put("location",editlocation.getText()
-
-                                                .
-
-                                                        toString()
-
-                                );
-                        ParseUser.getCurrentUser().
-
-                                put("main_instrument",editinst.getText()
-
-                                                .
-
-                                                        toString()
-
-                                );
-
-                        ParseUser.getCurrentUser().
-
-                                saveInBackground(new SaveCallback() {
-                                                     public void done (com.parse.ParseException e){
-                                                         if (e == null) {
-                                                             // Save was successful!
-                                                             Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                         } else {
-                                                             //Failed
-                                                             Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                         }
-                                                     }
-                                                 }
-
-                                );
-
-
-                        //Réactualisation du Profil
-                        dialog.dismiss();
-
-                        openProfile(v);
+                        ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
+                        ParseUser.getCurrentUser().put("age", editage.getText().toString());
+                        ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
+                        ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
+                        ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
+                        ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
+                                                                        public void done(com.parse.ParseException e) {
+                                                                            if (e == null) {
+                                                                                // Save was successful!
+                                                                                openProfile(null);
+                                                                                Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
+                                                                            } else {
+                                                                                //Failed
+                                                                                Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
+                                                                            }
+                                                                        }
+                                                                    }
+                        );
                     }
-
                 });
-
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                        openProfile(v);
-
-                    }
-
-                });
-                dialog.show();
-            }
-
-        });
-
-
-
+        builder.create().show();
     }
 
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/message"
+        android:title="Message"
+        android:titleCondensed="message"
+        android:icon="@drawable/ic_message"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:visible="true"/>
+    <item
+        android:id="@+id/add_group"
+        android:title="Add to my group"
+        android:titleCondensed="add_group"
+        android:icon="@drawable/ic_add_group"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:visible="true"/>
+</menu>

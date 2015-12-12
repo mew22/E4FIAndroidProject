@@ -25,6 +25,7 @@ import com.example.kvin.jamtogether.Session;
 import com.example.kvin.jamtogether.fragments.dummy.DummyContent;
 import com.example.kvin.jamtogether.interfaces.Callbacks;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -59,7 +60,6 @@ public class ItemListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
-    ArrayAdapter<IntermediateClass> adapter;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -72,6 +72,7 @@ public class ItemListFragment extends ListFragment {
      * A dummy implementation of the {@link Callbacks} interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
+    private List<IntermediateClass> list = new ArrayList<>();
     private static Callbacks sDummyCallbacks = new Callbacks() {
         @Override
         public void onItemSelected(String id) {
@@ -88,37 +89,36 @@ public class ItemListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        List list = null;
         Class c;
         switch(((MyApplication)getActivity().getApplication()).item.getItemId()){ //for each menu item in nav
 
             case R.id.nav_search:{
-                list = ((MyApplication)getActivity().getApplication()).list_user;
+                list.addAll(((MyApplication)getActivity().getApplication()).list_user);
                 c = User.class;
                 break;
             }
             case R.id.nav_groups:{
-                list = ((MyApplication)getActivity().getApplication()).current_user.list_group;
+                list.addAll(((MyApplication)getActivity().getApplication()).current_user.list_group);
                 c = Group.class;
                 break;
             }
             case R.id.nav_music:{
-                list = ((MyApplication)getActivity().getApplication()).current_user.list_music;
+                list.addAll(((MyApplication)getActivity().getApplication()).current_user.list_music);
                 c = Music.class;
                 break;
             }
             case R.id.nav_instruments:{
-                list = ((MyApplication)getActivity().getApplication()).current_user.list_instrument;
+                list.addAll(((MyApplication)getActivity().getApplication()).current_user.list_instrument);
                 c = Instrument.class;
                 break;
             }
             case R.id.nav_sessions:{
-                list = ((MyApplication)getActivity().getApplication()).current_user.list_session;
+                list.addAll(((MyApplication)getActivity().getApplication()).current_user.list_session);
                 c = Session.class;
                 break;
             }
             case R.id.nav_invitations:{
-                list = ((MyApplication)getActivity().getApplication()).current_user.list_invitation;
+                list.addAll(((MyApplication)getActivity().getApplication()).current_user.list_invitation);
                 c = Invitation.class;
                 break;
             }
@@ -127,8 +127,8 @@ public class ItemListFragment extends ListFragment {
                 break;
             }
         }
-        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, list);
-        setListAdapter(adapter);
+        ((MyApplication)getActivity().getApplication()).adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, list);
+        setListAdapter(((MyApplication)getActivity().getApplication()).adapter);
 
 
         // TODO: replace with a real list adapter.
@@ -193,7 +193,7 @@ public class ItemListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
+        mCallbacks.onItemSelected(list.get(position).id + "");
     }
 
     @Override

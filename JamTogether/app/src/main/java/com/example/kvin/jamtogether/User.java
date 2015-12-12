@@ -21,6 +21,11 @@ public class User extends IntermediateClass{
 
     @Override
     public String toString() {
-        return "";
+        return username;
+    }
+
+    public User(){
+        super();
+        content = toString() + id;
     }
 }

@@ -2,6 +2,7 @@ package com.example.kvin.jamtogether;
 
 import android.app.Application;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 
 import com.parse.Parse;
 import com.parse.ParseInstallation;
@@ -20,6 +21,7 @@ public class MyApplication extends Application{
         public boolean login;
         public boolean TwoPane;
         public MenuItem item;
+        public ArrayAdapter<IntermediateClass> adapter;
 
         public MyApplication() {
 

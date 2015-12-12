@@ -30,7 +30,13 @@ public class ListFragment extends IntermediateListFragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.item_list_menu, menu);
+        if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_search){
+
+        }else if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_invitations){
+            inflater.inflate(R.menu.item_list_menu_without_add, menu);
+        }else{
+            inflater.inflate(R.menu.item_list_menu, menu);
+        }
     }
 
 
@@ -39,7 +45,7 @@ public class ListFragment extends IntermediateListFragment {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.add:
-                //adapter.notifyDataSetChanged();
+                ((MyApplication)getActivity().getApplication()).adapter.notifyDataSetChanged();
                 //DialogFragment dialog = new PeopleDialog();
                 //dialog.show(getSupportFragmentManager(), "PeopleDialog");
                 return true;

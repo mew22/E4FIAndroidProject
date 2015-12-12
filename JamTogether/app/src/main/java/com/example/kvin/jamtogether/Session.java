@@ -8,4 +8,9 @@ public class Session extends IntermediateClass{
     public String toString() {
         return "Session";
     }
+
+    public Session(){
+        super();
+        content = toString() + id;
+    }
 }

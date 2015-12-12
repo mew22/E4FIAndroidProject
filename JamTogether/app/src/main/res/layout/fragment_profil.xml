@@ -76,18 +76,4 @@
         android:id="@+id/tvInstrumentPrincEdit"
         android:layout_weight="3" />
 
-
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Edit"
-        android:id="@+id/butEditProfile"
-        android:layout_weight="0.1"/>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Back"
-        android:id="@+id/butReturnWelc"
-        android:layout_weight="0.1" />
-
 </LinearLayout>

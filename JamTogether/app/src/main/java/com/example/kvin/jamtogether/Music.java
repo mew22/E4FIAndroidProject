@@ -8,4 +8,9 @@ public class Music extends IntermediateClass{
     public String toString() {
         return "Musique";
     }
+
+    public Music(){
+        super();
+        content = toString() + id;
+    }
 }
