@@ -1,9 +1,12 @@
 package com.example.kvin.jamtogether.fragments;
 
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,10 +31,29 @@ public class ListFragment extends IntermediateListFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        Intent intent = getActivity().getIntent();
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //doMySearch(query);
+            System.out.println(query);
+        }
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_search){
 
+            inflater.inflate(R.menu.search_item_menu, menu);
+            // Get the SearchView and set the searchable configuration
+            SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+            SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+            // Assumes current activity is the searchable activity
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+            searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         }else if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_invitations){
             inflater.inflate(R.menu.item_list_menu_without_add, menu);
         }else{
