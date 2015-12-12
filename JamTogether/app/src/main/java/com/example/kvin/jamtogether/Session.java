@@ -3,9 +3,9 @@ package com.example.kvin.jamtogether;
 /**
  * Created by Asus on 10/12/2015.
  */
-public class Session {
+public class Session extends IntermediateClass{
     @Override
     public String toString() {
-        return "";
+        return "Session";
     }
 }

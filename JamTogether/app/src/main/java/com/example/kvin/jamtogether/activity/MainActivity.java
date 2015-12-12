@@ -18,12 +18,17 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.kvin.jamtogether.Group;
+import com.example.kvin.jamtogether.Instrument;
+import com.example.kvin.jamtogether.Invitation;
+import com.example.kvin.jamtogether.Music;
 import com.example.kvin.jamtogether.MyApplication;
 import com.example.kvin.jamtogether.R;
-import com.example.kvin.jamtogether.fragments.GroupsFragment;
+import com.example.kvin.jamtogether.Session;
 import com.example.kvin.jamtogether.fragments.IntermediateListFragment;
 import com.example.kvin.jamtogether.fragments.ItemDetailFragment;
 import com.example.kvin.jamtogether.fragments.ItemListFragment;
+import com.example.kvin.jamtogether.fragments.ListFragment;
 import com.example.kvin.jamtogether.fragments.LoginFragment;
 import com.example.kvin.jamtogether.fragments.LogoutFragment;
 import com.example.kvin.jamtogether.fragments.NewsFragment;
@@ -122,12 +127,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -161,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_search:{
-                fragmentClass = SearchFragment.class;
+                fragmentClass = ListFragment.class;
                 break;
             }
             case R.id.nav_login : {
@@ -173,15 +178,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_groups:{
-                fragmentClass = GroupsFragment.class;
+                fragmentClass = ListFragment.class;
                 break;
             }
             case R.id.nav_music:{
-                fragmentClass = ProfilFragment.class;
+                fragmentClass = ListFragment.class;
                 break;
             }
             case R.id.nav_instruments:{
-                fragmentClass = ProfilFragment.class;
+                fragmentClass = ListFragment.class;
                 break;
             }
             case R.id.nav_logout: {
@@ -189,11 +194,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             }
             case R.id.nav_sessions:{
-                fragmentClass = ProfilFragment.class;
+                fragmentClass = ListFragment.class;
                 break;
             }
             case R.id.nav_invitations:{
-                fragmentClass = ProfilFragment.class;
+                fragmentClass = ListFragment.class;
                 break;
             }
             default:{
@@ -249,14 +254,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public void GetInfosUser(){
-        ((MyApplication)getApplication()).current_user.list_group = ParseUser.getCurrentUser().getList("groups");
+        /*((MyApplication)getApplication()).current_user.list_group = ParseUser.getCurrentUser().getList("groups");
         ((MyApplication)getApplication()).current_user.list_instrument = ParseUser.getCurrentUser().getList("instruments");
         ((MyApplication)getApplication()).current_user.list_music = ParseUser.getCurrentUser().getList("musics");
         ((MyApplication)getApplication()).current_user.list_invitation = ParseUser.getCurrentUser().getList("invitations");
         ((MyApplication)getApplication()).current_user.list_session = ParseUser.getCurrentUser().getList("sessions");
-        ((MyApplication)getApplication()).current_user.list_role = ParseUser.getCurrentUser().getList("roles");
+        ((MyApplication)getApplication()).current_user.list_role = ParseUser.getCurrentUser().getList("roles");*/
 
         ((MyApplication)getApplication()).current_user.username = ParseUser.getCurrentUser().getUsername();
+
+        // test
+        ((MyApplication)getApplication()).current_user.list_group.add(new Group());
+        ((MyApplication)getApplication()).current_user.list_group.add(new Group());
+
+        ((MyApplication)getApplication()).current_user.list_instrument.add(new Instrument());
+        ((MyApplication)getApplication()).current_user.list_instrument.add(new Instrument());
+        ((MyApplication)getApplication()).current_user.list_instrument.add(new Instrument());
+        ((MyApplication)getApplication()).current_user.list_instrument.add(new Instrument());
+
+        ((MyApplication)getApplication()).current_user.list_music.add(new Music());
+
+        ((MyApplication)getApplication()).current_user.list_invitation.add(new Invitation());
+
+        ((MyApplication)getApplication()).current_user.list_session.add(new Session());
+        ((MyApplication)getApplication()).current_user.list_session.add(new Session());
+
     }
 
     @Override

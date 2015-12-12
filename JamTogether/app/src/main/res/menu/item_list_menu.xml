@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add"
+        android:title="Add"
+        android:titleCondensed="add"
+        android:icon="@drawable/ic_add"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:visible="true"/>
+    <item
+        android:id="@+id/clear"
+        android:title="Clear"
+        android:titleCondensed="clear"
+        android:icon="@drawable/ic_clear"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:visible="true"/>
+    <item
+        android:id="@+id/sort"
+        android:title="Sort"
+        android:titleCondensed="sort"
+        android:icon="@drawable/ic_sort"
+        app:showAsAction="always"
+        android:enabled="true"
+        android:visible="true"/>
+</menu>
+
+<!--         android:showAsAction="always"-->

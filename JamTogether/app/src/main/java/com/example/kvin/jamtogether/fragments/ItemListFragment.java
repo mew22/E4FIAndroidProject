@@ -3,13 +3,19 @@ package com.example.kvin.jamtogether.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.ListFragment;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.kvin.jamtogether.Group;
 import com.example.kvin.jamtogether.Instrument;
+import com.example.kvin.jamtogether.IntermediateClass;
 import com.example.kvin.jamtogether.Invitation;
 import com.example.kvin.jamtogether.Music;
 import com.example.kvin.jamtogether.MyApplication;
@@ -53,6 +59,8 @@ public class ItemListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
 
+    ArrayAdapter<IntermediateClass> adapter;
+
     /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
@@ -81,7 +89,7 @@ public class ItemListFragment extends ListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         List list = null;
-        Class c = null;
+        Class c;
         switch(((MyApplication)getActivity().getApplication()).item.getItemId()){ //for each menu item in nav
 
             case R.id.nav_search:{
@@ -114,17 +122,33 @@ public class ItemListFragment extends ListFragment {
                 c = Invitation.class;
                 break;
             }
+            default:{
+                c = Session.class;
+                break;
+            }
         }
+        adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, list);
+        setListAdapter(adapter);
+
 
         // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
+        /*setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                DummyContent.ITEMS));
+                DummyContent.ITEMS));*/
 
-        // setListAdapter(new ArrayAdapter<c>(getActivity(), android.R.layout.simple_list_item_activated_1, android.R.id.text1, list));
+
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        System.out.println("menu context");
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.item_list_menu_second, menu);
+    }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -137,6 +161,12 @@ public class ItemListFragment extends ListFragment {
         }
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        registerForContextMenu(getListView());
+    }
 
     @Override
     public void onAttach(Activity activity) {

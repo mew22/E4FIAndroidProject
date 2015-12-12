@@ -4,7 +4,11 @@ package com.example.kvin.jamtogether.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,14 +19,47 @@ import com.example.kvin.jamtogether.activity.ItemDetailActivity;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupsFragment extends IntermediateListFragment {
+public class ListFragment extends IntermediateListFragment {
 
     public boolean mTwoPane;
 
-    public GroupsFragment() {
+    public ListFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.item_list_menu, menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.add:
+                //adapter.notifyDataSetChanged();
+                //DialogFragment dialog = new PeopleDialog();
+                //dialog.show(getSupportFragmentManager(), "PeopleDialog");
+                return true;
+            case R.id.clear:
+                //ShowClearDialog();
+                return true;
+            case R.id.sort:
+                //ShowSortDialog();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        this.setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,6 +83,7 @@ public class GroupsFragment extends IntermediateListFragment {
         }
         return v;
     }
+
 
     @Override
     public void onItemSelected(String id) {

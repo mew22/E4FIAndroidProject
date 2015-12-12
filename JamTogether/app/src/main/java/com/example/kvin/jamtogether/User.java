@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Asus on 10/12/2015.
  */
-public class User {
+public class User extends IntermediateClass{
 
     public List<Group> list_group = new ArrayList<Group>();
     public List<Instrument> list_instrument = new ArrayList<Instrument>();
