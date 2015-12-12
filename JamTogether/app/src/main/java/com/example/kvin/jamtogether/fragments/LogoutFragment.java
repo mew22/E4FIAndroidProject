@@ -66,6 +66,7 @@ public class LogoutFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         ParseUser.logOut();
+                        ((MyApplication)getActivity().getApplication()).login = false;
                         onlgout.lgout();
 
                     }
@@ -81,9 +82,5 @@ public class LogoutFragment extends DialogFragment {
 builder.create().show();
         return null;
     }
-
-
-
-
 
 }

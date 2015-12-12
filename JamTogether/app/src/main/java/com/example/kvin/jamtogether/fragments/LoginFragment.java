@@ -1,87 +1,75 @@
 package com.example.kvin.jamtogether.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.example.kvin.jamtogether.MyApplication;
 import com.example.kvin.jamtogether.R;
+import com.example.kvin.jamtogether.interfaces.onLogIn;
+import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 public class LoginFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-
-    //private OnFragmentInteractionListener mListener;
 
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
+    private onLogIn onlgin = new onLogIn() {
+        @Override
+        public void lgin() {
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ParseLoginBuilder builder = new ParseLoginBuilder(getActivity());
-        startActivityForResult(builder.build(), 0);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+        }
+    };
 
     @Override
     public void onStart() {
         super.onStart();
 
+        ParseLoginBuilder builder = new ParseLoginBuilder(getActivity());
+        startActivityForResult(builder.build(), 0);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        TextView textView = new TextView(getActivity());
-        textView.setText(R.string.hello_blank_fragment);
-        return textView;
-    }
-
-    /*// TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+    public void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0) {
+            if (resultCode == getActivity().RESULT_OK) {
+                ((MyApplication)getActivity().getApplication()).login = true;
+                onlgin.lgin();
+            }
         }
     }
 
     @Override
-    public void onAttach(Activity activity) {
+    public void onAttach(Activity activity)
+    {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+        if (!(activity instanceof onLogIn)) {
+            throw new IllegalStateException("Activity must implement fragment's callbacks.");
         }
+
+        onlgin = (onLogIn) activity;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
-    }
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-    }*/
+    }
+    public LoginFragment() {
+        // Required empty public constructor
+    }
 
 }
