@@ -46,7 +46,6 @@ public class ListFragment extends IntermediateListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_search){
-
             inflater.inflate(R.menu.search_item_menu, menu);
             // Get the SearchView and set the searchable configuration
             SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
@@ -54,6 +53,7 @@ public class ListFragment extends IntermediateListFragment {
             // Assumes current activity is the searchable activity
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
             searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+
         }else if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_invitations){
             inflater.inflate(R.menu.item_list_menu_without_add, menu);
         }else{

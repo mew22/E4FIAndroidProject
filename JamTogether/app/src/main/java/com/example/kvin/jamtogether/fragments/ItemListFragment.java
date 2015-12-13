@@ -144,7 +144,6 @@ public class ItemListFragment extends ListFragment {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        System.out.println("menu context");
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.item_list_menu_second, menu);
     }
