@@ -6,47 +6,30 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editpseudo"
-        android:hint="Pseudo"
-        android:inputType="textPersonName"/>
+        android:id="@+id/edit_music_name"
+        android:hint="Name"
+        android:inputType="text"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_prenom"
+        android:id="@+id/edit_music_created"
         android:layout_gravity="center_horizontal"
-        android:hint="First Name"
-        android:inputType="textPersonName"/>
+        android:hint="date created"
+        android:inputType="datetime"/>
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_age"
-        android:layout_gravity="center_horizontal"
-        android:hint="Age"
-        android:inputType="phone"/>
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_location"
-        android:layout_gravity="center_horizontal"
-        android:hint="Location"
-        android:inputType="textPersonName"/>
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edit_main_inst"
-        android:layout_gravity="center_horizontal"
-        android:hint="Main Instrument"
-        android:inputType="textPersonName"/>
+    <!--  Put this into the layout and start new master detail cycle
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/texterroredit"
-        android:layout_gravity="center_horizontal" />
+<Spinner
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:hint="artistes"
+    android:id="@+id/edit_music_artiste"
+    android:spinnerMode="dialog" />
+    -->
+
+
 
 
 </LinearLayout>

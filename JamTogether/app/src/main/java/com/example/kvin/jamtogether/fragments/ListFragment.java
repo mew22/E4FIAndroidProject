@@ -52,7 +52,7 @@ public class ListFragment extends IntermediateListFragment {
             SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
             // Assumes current activity is the searchable activity
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-            searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
+            searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default0
 
         }else if(((MyApplication)getActivity().getApplication()).item.getItemId() == R.id.nav_invitations){
             inflater.inflate(R.menu.item_list_menu_without_add, menu);

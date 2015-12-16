@@ -6,47 +6,44 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editpseudo"
-        android:hint="Pseudo"
+        android:id="@+id/edit_group_name"
+        android:hint="Name"
         android:inputType="textPersonName"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_prenom"
+        android:id="@+id/edit_group_created"
         android:layout_gravity="center_horizontal"
-        android:hint="First Name"
-        android:inputType="textPersonName"/>
+        android:hint="date created"
+        android:inputType="datetime"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_age"
+        android:id="@+id/edit_group_ended"
         android:layout_gravity="center_horizontal"
-        android:hint="Age"
-        android:inputType="phone"/>
+        android:hint="date ended"
+        android:inputType="datetime"/>
 
-    <EditText
+
+    <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_location"
+        android:id="@+id/edit_group_admin"
         android:layout_gravity="center_horizontal"
-        android:hint="Location"
-        android:inputType="textPersonName"/>
-    <EditText
+        android:hint="admin"
+        android:spinnerMode="dialog" />
+
+    <!--  Put this into the layout and start new master detail cycle
+
+    <Spinner
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edit_main_inst"
-        android:layout_gravity="center_horizontal"
-        android:hint="Main Instrument"
-        android:inputType="textPersonName"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/texterroredit"
-        android:layout_gravity="center_horizontal" />
+        android:hint="members"
+        android:id="@+id/edit_group_member"
+        android:spinnerMode="dialog" />
+        -->
 
 
 </LinearLayout>

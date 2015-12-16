@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:weightSum="1">
+
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_invitation_from"
+        android:textColor="@color/white"
+        android:hint="from" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_invitation_created"
+        android:layout_gravity="center_horizontal"
+        android:hint="date created"
+        android:inputType="datetime"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Message..."
+        android:id="@+id/detail_invitation_content"
+        android:textColor="@color/white"
+        android:layout_weight="0.50" />
+</LinearLayout>

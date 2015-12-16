@@ -173,12 +173,39 @@ public class ItemDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
 
 
-        // Show the dummy content as text in a TextView.
-        if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.details);
+        View rootView = null;
+
+        switch(((MyApplication)getActivity().getApplication()).item.getItemId()) { //for each menu item in nav
+
+            case R.id.nav_search: {
+                break;
+            }
+            case R.id.nav_groups: {
+                rootView = inflater.inflate(R.layout.detail_group_item, container, false);
+                break;
+            }
+            case R.id.nav_music:{
+                rootView = inflater.inflate(R.layout.detail_music_item, container, false);
+                break;
+            }
+            case R.id.nav_instruments:{
+                rootView = inflater.inflate(R.layout.detail_instrument_item, container, false);
+                break;
+            }
+            case R.id.nav_sessions:{
+                rootView = inflater.inflate(R.layout.detail_session_item, container, false);
+                break;
+            }
+            case R.id.nav_invitations:{
+                rootView = inflater.inflate(R.layout.detail_invitation_item, container, false);
+                break;
+            }
+            default:{
+                rootView = inflater.inflate(R.layout.detail_instrument_item, container, false);
+                break;
+            }
         }
 
         return rootView;
@@ -193,15 +220,6 @@ public class ItemDetailFragment extends Fragment {
             }
             case R.id.nav_groups:{
                 root = getActivity().getLayoutInflater().inflate(R.layout.edit_group_item_dialog, null);
-                final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) root.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
-
-                final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
@@ -217,49 +235,7 @@ public class ItemDetailFragment extends Fragment {
                         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                listeditprofile.add(editpseudo);
-                                listeditprofile.add(editage);
-                                listeditprofile.add(editprenom);
-                                listeditprofile.add(editlocation);
-                                listeditprofile.add(editinst);
-                                boolean full = false;
 
-                                //Test de remplissage
-
-                                while (full == false) {
-
-                                    for (EditText elt : listeditprofile) {
-
-                                        if (TextUtils.isEmpty(elt.getText().toString())) {
-                                            elt.setError("Please fill this item.");
-                                            error_text.setText("Please verify that all fields are written.");
-                                            error_text.setTextColor(Color.RED);
-                                            return;
-                                        } else {
-                                            full = true;
-                                        }
-                                    }
-
-                                }
-                                // Actu dans la BDD
-                                ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
-                                ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                                ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
-                                ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
-                                ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
-                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                                                public void done(com.parse.ParseException e) {
-                                                                                    if (e == null) {
-                                                                                        // Save was successful!
-
-                                                                                        Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                                                    } else {
-                                                                                        //Failed
-                                                                                        Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                                                    }
-                                                                                }
-                                                                            }
-                                );
                             }
                         });
                 builder.create().show();
@@ -267,15 +243,6 @@ public class ItemDetailFragment extends Fragment {
             }
             case R.id.nav_music:{
                 root = getActivity().getLayoutInflater().inflate(R.layout.edit_music_item_dialog, null);
-                final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) root.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
-
-                final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
@@ -291,49 +258,7 @@ public class ItemDetailFragment extends Fragment {
                         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                listeditprofile.add(editpseudo);
-                                listeditprofile.add(editage);
-                                listeditprofile.add(editprenom);
-                                listeditprofile.add(editlocation);
-                                listeditprofile.add(editinst);
-                                boolean full = false;
 
-                                //Test de remplissage
-
-                                while (full == false) {
-
-                                    for (EditText elt : listeditprofile) {
-
-                                        if (TextUtils.isEmpty(elt.getText().toString())) {
-                                            elt.setError("Please fill this item.");
-                                            error_text.setText("Please verify that all fields are written.");
-                                            error_text.setTextColor(Color.RED);
-                                            return;
-                                        } else {
-                                            full = true;
-                                        }
-                                    }
-
-                                }
-                                // Actu dans la BDD
-                                ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
-                                ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                                ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
-                                ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
-                                ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
-                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                                                public void done(com.parse.ParseException e) {
-                                                                                    if (e == null) {
-                                                                                        // Save was successful!
-
-                                                                                        Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                                                    } else {
-                                                                                        //Failed
-                                                                                        Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                                                    }
-                                                                                }
-                                                                            }
-                                );
                             }
                         });
                 builder.create().show();
@@ -341,20 +266,11 @@ public class ItemDetailFragment extends Fragment {
             }
             case R.id.nav_instruments:{
                 root = getActivity().getLayoutInflater().inflate(R.layout.edit_instrument_item_dialog, null);
-                final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) root.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
-
-                final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Edit "+ mItem.content)
+                builder.setTitle("Edit " + mItem.content)
                         .setView(root)
                         .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                             @Override
@@ -365,49 +281,7 @@ public class ItemDetailFragment extends Fragment {
                         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                listeditprofile.add(editpseudo);
-                                listeditprofile.add(editage);
-                                listeditprofile.add(editprenom);
-                                listeditprofile.add(editlocation);
-                                listeditprofile.add(editinst);
-                                boolean full = false;
 
-                                //Test de remplissage
-
-                                while (full == false) {
-
-                                    for (EditText elt : listeditprofile) {
-
-                                        if (TextUtils.isEmpty(elt.getText().toString())) {
-                                            elt.setError("Please fill this item.");
-                                            error_text.setText("Please verify that all fields are written.");
-                                            error_text.setTextColor(Color.RED);
-                                            return;
-                                        } else {
-                                            full = true;
-                                        }
-                                    }
-
-                                }
-                                // Actu dans la BDD
-                                ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
-                                ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                                ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
-                                ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
-                                ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
-                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                                                public void done(com.parse.ParseException e) {
-                                                                                    if (e == null) {
-                                                                                        // Save was successful!
-
-                                                                                        Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                                                    } else {
-                                                                                        //Failed
-                                                                                        Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                                                    }
-                                                                                }
-                                                                            }
-                                );
                             }
                         });
                 builder.create().show();
@@ -415,15 +289,6 @@ public class ItemDetailFragment extends Fragment {
             }
             case R.id.nav_sessions:{
                 root = getActivity().getLayoutInflater().inflate(R.layout.edit_session_item_dialog, null);
-                final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) root.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
-
-                final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
@@ -439,70 +304,18 @@ public class ItemDetailFragment extends Fragment {
                         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                listeditprofile.add(editpseudo);
-                                listeditprofile.add(editage);
-                                listeditprofile.add(editprenom);
-                                listeditprofile.add(editlocation);
-                                listeditprofile.add(editinst);
-                                boolean full = false;
 
-                                //Test de remplissage
-
-                                while (full == false) {
-
-                                    for (EditText elt : listeditprofile) {
-
-                                        if (TextUtils.isEmpty(elt.getText().toString())) {
-                                            elt.setError("Please fill this item.");
-                                            error_text.setText("Please verify that all fields are written.");
-                                            error_text.setTextColor(Color.RED);
-                                            return;
-                                        } else {
-                                            full = true;
-                                        }
-                                    }
-
-                                }
-                                // Actu dans la BDD
-                                ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
-                                ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                                ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
-                                ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
-                                ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
-                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                                                public void done(com.parse.ParseException e) {
-                                                                                    if (e == null) {
-                                                                                        // Save was successful!
-
-                                                                                        Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                                                    } else {
-                                                                                        //Failed
-                                                                                        Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                                                    }
-                                                                                }
-                                                                            }
-                                );
                             }
                         });
                 builder.create().show();
-                break;
-            }
+                break;            }
             case R.id.nav_invitations:{
                 root = getActivity().getLayoutInflater().inflate(R.layout.edit_invitation_item_dialog, null);
-                final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) root.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
-
-                final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Edit "+ mItem.content)
+                builder.setTitle("Edit " + mItem.content)
                         .setView(root)
                         .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
                             @Override
@@ -513,49 +326,7 @@ public class ItemDetailFragment extends Fragment {
                         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                listeditprofile.add(editpseudo);
-                                listeditprofile.add(editage);
-                                listeditprofile.add(editprenom);
-                                listeditprofile.add(editlocation);
-                                listeditprofile.add(editinst);
-                                boolean full = false;
 
-                                //Test de remplissage
-
-                                while (full == false) {
-
-                                    for (EditText elt : listeditprofile) {
-
-                                        if (TextUtils.isEmpty(elt.getText().toString())) {
-                                            elt.setError("Please fill this item.");
-                                            error_text.setText("Please verify that all fields are written.");
-                                            error_text.setTextColor(Color.RED);
-                                            return;
-                                        } else {
-                                            full = true;
-                                        }
-                                    }
-
-                                }
-                                // Actu dans la BDD
-                                ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
-                                ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                                ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
-                                ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
-                                ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
-                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                                                public void done(com.parse.ParseException e) {
-                                                                                    if (e == null) {
-                                                                                        // Save was successful!
-
-                                                                                        Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                                                    } else {
-                                                                                        //Failed
-                                                                                        Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                                                    }
-                                                                                }
-                                                                            }
-                                );
                             }
                         });
                 builder.create().show();
@@ -563,15 +334,6 @@ public class ItemDetailFragment extends Fragment {
             }
             default:{
                 root = getActivity().getLayoutInflater().inflate(R.layout.edit_instrument_item_dialog, null);
-                final EditText editpseudo = (EditText) root.findViewById(R.id.editpseudo);
-                final EditText editprenom = (EditText) root.findViewById(R.id.edit_prenom);
-                final EditText editage = (EditText) root.findViewById(R.id.edit_age);
-                final EditText editlocation = (EditText) root.findViewById(R.id.edit_location);
-                final EditText editinst = (EditText) root.findViewById(R.id.edit_main_inst);
-
-                final TextView error_text = (TextView) root.findViewById(R.id.texterroredit);
-
-                final List<EditText> listeditprofile = new ArrayList<EditText>();
 
 
 
@@ -587,49 +349,7 @@ public class ItemDetailFragment extends Fragment {
                         .setPositiveButton("Valider", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                listeditprofile.add(editpseudo);
-                                listeditprofile.add(editage);
-                                listeditprofile.add(editprenom);
-                                listeditprofile.add(editlocation);
-                                listeditprofile.add(editinst);
-                                boolean full = false;
 
-                                //Test de remplissage
-
-                                while (full == false) {
-
-                                    for (EditText elt : listeditprofile) {
-
-                                        if (TextUtils.isEmpty(elt.getText().toString())) {
-                                            elt.setError("Please fill this item.");
-                                            error_text.setText("Please verify that all fields are written.");
-                                            error_text.setTextColor(Color.RED);
-                                            return;
-                                        } else {
-                                            full = true;
-                                        }
-                                    }
-
-                                }
-                                // Actu dans la BDD
-                                ParseUser.getCurrentUser().put("username", editpseudo.getText().toString());
-                                ParseUser.getCurrentUser().put("age", editage.getText().toString());
-                                ParseUser.getCurrentUser().put("name", editprenom.getText().toString());
-                                ParseUser.getCurrentUser().put("location", editlocation.getText().toString());
-                                ParseUser.getCurrentUser().put("main_instrument", editinst.getText().toString());
-                                ParseUser.getCurrentUser().saveInBackground(new SaveCallback() {
-                                                                                public void done(com.parse.ParseException e) {
-                                                                                    if (e == null) {
-                                                                                        // Save was successful!
-
-                                                                                        Toast.makeText(getActivity(), "Profile Updated !", Toast.LENGTH_LONG).show();
-                                                                                    } else {
-                                                                                        //Failed
-                                                                                        Toast.makeText(getActivity(), "Error during Update !", Toast.LENGTH_LONG).show();
-                                                                                    }
-                                                                                }
-                                                                            }
-                                );
                             }
                         });
                 builder.create().show();

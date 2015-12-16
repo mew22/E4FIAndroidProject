@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_music_name"
+        android:textColor="@color/white"
+        android:hint="Name"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_music_created"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/white"
+        android:hint="date created"/>
+
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/detail_music_artiste"
+        android:textColor="@color/white"
+        android:layout_gravity="center_horizontal" />
+
+</LinearLayout>
